@@ -6,7 +6,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description"
             content="Extract or scan text from images in multiple languages- English Hindi Nepali etc. Quickly Get Text from Image">
-        <title>Text Extractor Scan text from Image| OCR</title>
+        <title>kks</title>
+
+        <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet">
+
         <link rel="stylesheet" href="/static/style.css">
         <link href="http://fonts.cdnfonts.com/css/euclid-circular-a?styles=100037,100034,100036,100039,100031"
             rel="stylesheet">
@@ -21,9 +24,16 @@
         <header class="text-gray-600 body-font">
             <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                    <span class="ml-3 text-xl">OCR <i class="fi fi-rr-text"></i></span>
+                    <span class="ml-3 text-xl">kks</span>
+
+                    <!-- <i class="fi fi-rr-text"></i> -->
                 </a>
+
                 <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+                    <a href="#ocr" class="mr-5 cursor-pointer hover:text-gray-900">ocr</a>
+                </nav>
+
+                <!-- <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
                     <a href="/" class="mr-5 cursor-pointer hover:text-gray-900"><i class="fi fi-rr-home"></i> Home</a>
                     <a href="https://www.facebook.com/sachhit.yadav" target="_blank"
                         class="mr-5 cursor-pointer hover:text-gray-900"><i class="fi fi-rr-user"></i> Creator</a>
@@ -36,61 +46,76 @@
                             <path d="M5 12h14M12 5l7 7-7 7"></path>
                         </svg>
                     </button>
-                </a>
+                </a> -->
             </div>
 
-
         </header>
+
         <!-- error popup modal -->
         {% if messages %}
         {% for msg in messages %}
-        <div id="error-modal" class="flex animate-pulse w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg
-       fixed left-8 top-8">
+
+        <div id="error-modal" class="flex animate-pulse w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
             <div class="flex items-center justify-center w-12 stroke-slate-900">
-                <svg class="w-6 h-6 text-slate-800 fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z" />
-                </svg>
+                <!-- <svg class="w-6 h-6 text-slate-800 fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                     <path
+                        d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z" /> 
+                </svg> -->
+
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 24 24" class="w-6 h-6 text-slate-800 fill-current">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></g></svg>
             </div>
 
             <div class="px-4 py-2 -mx-3">
                 <div class="mx-3">
-                    <span class="font-semibold text-slate-800 ">Error</span>
+                    <span class="font-semibold text-slate-800 ">scan unavailable</span>
                     <p class="text-sm text-gray-600 ">{{msg}}</p>
                 </div>
             </div>
         </div>
+
         {% endfor %}
         {% endif %}
         <!-- error popup modal -->
 
-        <section class="text-gray-600">
+        <section class="text-gray-600" id="ocr">
             <div class="container px-5 py-24 mx-auto">
                 <div class="flex flex-col text-center w-full mb-12">
-                    <h1 class="sm:text-7xl text-2xl font-medium mb-4 text-gray-900">Text Extractor</h1>
-                    <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">Extract or Scan text from images</p>
+                    <h1 class="sm:text-7xl text-2xl font-medium mb-4 text-gray-900">ocr</h1>
+                    <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">optical character recognition</p>
                 </div>
 
-
                 <div class="container">
+                    <div class="image-area">
+
+                    </div>
+
                     <div class="buttons">
+                        
                         <button id="upload-btn" onclick="document.getElementById('formFile').click()"
-                            class="custom-btn shadow-md mb-2">Upload
-                            Img <i class="fi fi-rr-upload"></i>
+                            class="custom-btn shadow-md mb-2"> upload image
                         </button>
+
                         <form method="post" enctype="multipart/form-data" class="flex justify-center">
                             {% csrf_token %}
                             <input name="imagefile" re accept="image/*" type="file" id="formFile"
                                 style="display: none;">
+
                             <button class="custom-btn shadow-md " disabled>
                                 <select name="language" id="languages" class="bg-transparent">
-                                    <option value="eng" selected>English</option>
-                                    <option value="nep">Nepali</option>
-                                    <option value="hin">Hindi</option>
+                                    <option value="eng" selected >English</option>
+                                    <option value="chi">chinese</option>
+                                    <option value="engchi">mixed</option>
+
+                                    <!-- <option value="nep">Nepali</option>
+                                    <option value="hin">Hindi</option> -->
                                 </select>
                             </button>
-                            <button type="submit" class="custom-btn shadow-md bg-white">Scan <i
-                                    class="fi fi-rr-search"></i></button>
+                            
+                            <button type="submit" class="custom-btn shadow-md bg-white">get text</button>
                         </form>
                     </div>
                 </div>
@@ -119,13 +144,13 @@
 
 
         </section>
-        <section class="text-gray-600 body-font">
+        <!-- <section class="text-gray-600 body-font">
             <div class="container px-5 py-24 mx-auto flex flex-wrap">
                 <div class="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden">
                     <img id="svgs" alt="feature" class="image-slide object-center h-3/4 w-3/4"
                         src="/static/assets/1.svg">
                 </div>
-                <!-- script to change svg change  -->
+                 script to change svg change 
                 <script>
                     console.log('image.js');
                     var i = 0;
@@ -141,9 +166,9 @@
 
                     }, 3000);
 
-                </script>
+                </script> -->
                 <!-- script to change svg change  -->
-                <div class="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
+                <!-- <div class="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
                     <div class="flex flex-col mb-10 lg:items-start items-center">
                         <div
                             class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-slate-300 text-slate-800 mb-5">
@@ -227,7 +252,7 @@
                 </a>
             </span>
         </div>
-    </footer>
+    </footer> -->
 
 
 </html>

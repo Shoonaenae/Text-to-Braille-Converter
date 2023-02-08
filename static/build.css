@@ -287,6 +287,20 @@ video {
     --tw-backdrop-sepia:
 }
 
+.image-container
+{
+    max-width: 400px;
+    width: 100%;
+}
+
+.img-area
+{
+    position: relative;
+    width: 100%;
+    height: 240px;
+    margin-top: 50px;
+}
+
 .container {
     width: 100%
 }
