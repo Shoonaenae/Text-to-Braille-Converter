@@ -3,5 +3,5 @@ from .views import index
 
 # urlconf
 urlpatterns = [
-    path('ocr/', index, name="index")
+    path('', index, name="index")
 ]
