@@ -7,9 +7,10 @@ from PIL import Image
 import base64
 import numpy as np
 import pytesseract
+import re 
 
 pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
+    r"A:\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
 )
 
 # Create your views here.
@@ -26,10 +27,14 @@ def index(request):
             )
 
             return render(request, "home.html")
-        
-        lang = request.POST["language"]
+
+        lang = request.POST["language"]    
         img = np.array(Image.open(image))
-        text = pytesseract.image_to_string(img, lang=lang)
+        text = pytesseract.image_to_string(img, lang = lang)
+        string = ""
+
+        for n in re.findall(r"[\u4e00-\u9fff]+", text):
+            string = string + n
 
         # return text to html
         return render(request, "home.html", {"ocr": text, "image": image_base64})

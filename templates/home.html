@@ -6,27 +6,19 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description"
-            content="ocr for english, chinese, and a mix of two">
+        <meta name="description" content="ocr for english, chinese, and a mix of two">
+
         <title>kks</title>
 
-        <!-- upload image with preview image -->
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
         <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet">
-
         <link rel="stylesheet" href="{% static 'styles/style.css' %}">
         <link rel="stylesheet" href="{% static 'styles/build.css' %}">
-
-        <link href="http://fonts.cdnfonts.com/css/euclid-circular-a?styles=100037,100034,100036,100039,100031"
-            rel="stylesheet">
-        <link rel='stylesheet'
-            href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-        
-            <script src="{ % static 'js/error.js' %}"></script>
+        <link href="http://fonts.cdnfonts.com/css/euclid-circular-a?styles=100037,100034,100036,100039,100031" rel="stylesheet">
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
         <link rel="shortcut icon" href="/static/assets/icons/TEXT.svg" type="image/x-icon">
-    </head>
 
+        <script src="{ % static 'js/error.js' %}"></script>
+    </head>
 
     <body class="bg-slate-50" style="font-family: 'Euclid Circular A', sans-serif;">
         <header class="text-gray-600 body-font">
@@ -56,7 +48,6 @@
                     </button>
                 </a> -->
             </div>
-
         </header>
 
         <!-- error popup modal -->
@@ -97,18 +88,7 @@
                 </div>
 
                 <div class="container">
-
-                    <!-- upload image with preview image -->
-                    <input type="file" id="file" accept="image/*" hidden>
-                    <div class="img-area" data-img="">
-                        <i class='bx bxs-cloud-upload icon'></i>
-                        <h3>Upload Image</h3>
-                        <p>Image size must be less than <span>2MB</span></p>
-                    </div>
-                    <button class="select-image">Select Image</button>
-
                     <div class="buttons">
-                        
                         <button id="upload-btn" onclick="document.getElementById('formFile').click()"
                             class="custom-btn shadow-md mb-2"> upload image
                         </button>
@@ -121,10 +101,10 @@
                             <button class="custom-btn shadow-md " disabled>
                                 <select name="language" id="languages" class="bg-transparent">
                                     <option value="eng" selected >English</option>
-                                    <option value="chi">chinese</option>
-                                    <option value="engchi">mixed</option>
+                                    <option value="chi_sim">chinese</option>
+                                    <!-- <option value="engchi">mixed</option>
 
-                                    <!-- <option value="nep">Nepali</option>
+                                    <option value="nep">Nepali</option>
                                     <option value="hin">Hindi</option> -->
                                 </select>
                             </button>
@@ -133,9 +113,6 @@
                         </form>
                     </div>
                 </div>
-
-                <script src="{ % static 'js/script.js' %}"></script>
-
 
                 <!-- Uploaded image will be shown -->
                 {% if image %}
@@ -157,7 +134,6 @@
                 {% endif %}
                 <!-- OCR text will be shown -->
             </div>
-
 
         </section>
         <!-- <section class="text-gray-600 body-font">
@@ -269,6 +245,4 @@
             </span>
         </div>
     </footer> -->
-
-
 </html>
