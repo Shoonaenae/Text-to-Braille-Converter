@@ -3,15 +3,18 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import render
 from PIL import Image
+from googletrans import Translator
 
 import base64
 import numpy as np
 import pytesseract
-import re 
+import cv2
 
 pytesseract.pytesseract.tesseract_cmd = (
     r"A:\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
 )
+
+myconfig = r"-l eng+chi_sim"
 
 # Create your views here.
 def index(request):
@@ -28,13 +31,9 @@ def index(request):
 
             return render(request, "home.html")
 
-        lang = request.POST["language"]    
+        # lang = request.POST["language"]    
         img = np.array(Image.open(image))
-        text = pytesseract.image_to_string(img, lang = lang)
-        string = ""
-
-        for n in re.findall(r"[\u4e00-\u9fff]+", text):
-            string = string + n
+        text = pytesseract.image_to_string(img, config = myconfig)
 
         # return text to html
         return render(request, "home.html", {"ocr": text, "image": image_base64})
