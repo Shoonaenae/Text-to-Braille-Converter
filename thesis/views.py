@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from PIL import Image
 from googletrans import Translator
+from .braille_converter import translateToBraille
 
 import base64
 import numpy as np
@@ -39,3 +40,11 @@ def index(request):
         return render(request, "home.html", {"ocr": text, "image": image_base64})
 
     return render(request, "home.html")
+
+def convert_text_to_braille(request):
+    if request.method == 'POST':
+        input_text = request.POST['input_text']
+        braille_text = translateToBraille(input_text)
+        return render(request, 'home.html', {'braille_text': braille_text})
+    else:
+        return render(request, 'home.html')
