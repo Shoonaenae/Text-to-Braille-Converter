@@ -62,7 +62,7 @@
             <div class="container px-5 py-24 mx-auto">
                 <div class="flex flex-col text-center w-full mb-12">
                     <h1 class="sm:text-7xl text-2xl font-medium mb-4 text-gray-900">ocr</h1>
-                    <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">optical character recognition</p>
+                    <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">optical character recognition for english, chinese, and chinglish</p>
                 </div>
 
                 <div class="container">
@@ -105,5 +105,30 @@
                 </div>
                 {% endif %}
                 <!-- OCR text will be shown -->
+            </div>
+
+
+            <div class="container px-5 py-24 mx-auto">
+                <div class="flex flex-col text-center w-full mb-12">
+                    <h1 class="sm:text-7xl text-2xl font-medium mb-4 text-gray-900">Text to Braille Converter</h1>
+                    <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">a text to braille converter using arrays</p>
+                
+            <form method="post" action="{% url 'convert_text_to_braille' %}">
+            {% csrf_token %}
+            <font size="+3"><label for="input-text">Enter Text:</label></font>
+            <div class="input-group">
+                <span class="input-group-text"></span>
+                <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
+                      type="text"  id="input-text" name="input_text" required></textarea>
+                </font>
+            </div>
+            <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
+            </form>
+            {% if braille_text %}
+            <br>
+            <font size="+2"><b><h1>Braille Result:</h1></font>
+            <font size="+5"><p>{{ braille_text }}</p></font>
+            {% endif %}
+
             </div>
 </html>
