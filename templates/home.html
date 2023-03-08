@@ -24,11 +24,12 @@
         <header class="text-gray-600 body-font">
             <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                    <span class="ml-3 text-xl">kks</span>
+                    <span class="ml-3 text-xl">text to braille converter</span>
                 </a>
 
                 <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
                     <a href="#ocr" class="mr-5 cursor-pointer hover:text-gray-900">ocr</a>
+                    <a href="#ttb" class="mr-5 cursor-pointer hover:text-gray-900">text to braille</a>
                 </nav>
             </div>
         </header>
@@ -61,8 +62,8 @@
         <section class="text-gray-600" id="ocr">
             <div class="container px-5 py-24 mx-auto">
                 <div class="flex flex-col text-center w-full mb-12">
-                    <h1 class="sm:text-7xl text-2xl font-medium mb-4 text-gray-900">ocr</h1>
-                    <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">optical character recognition for english, chinese, and chinglish</p>
+                    <h1 class="sm:text-7xl text-2xl font-medium mb-4 text-gray-900">optical character recognition</h1>
+                    <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">some description</p>
                 </div>
 
                 <div class="container">
@@ -101,34 +102,81 @@
                 <!-- OCR text will be shown -->
                 {% if ocr %}
                 <div class=" ease-out bg-white text-slate-800 rounded-2xl hover:shadow-lg p-6 mt-3 duration-300 w-auto">
-                    <p id="ocrtext" class="text-lg mt-2  mb-8 text-center ">{{ ocr }}</p>
+                    <button id="copybtn" onclick="copy()" class="button">copy</button>   
+                    
+                    <p id="ocrtext" class="text-lg mt-2  mb-8 text-center ">{{ ocr }}</p>   
+                    <a type="submit" class="custom-btn shadow-md bg-white" href="#ttb" id="braille" onclick="braille()">get braille</a>               
                 </div>
                 {% endif %}
+
+                <script>
+                    // copy to clipboard on copy btn click
+                    function copy() 
+                    {
+                        /* Get the text field */
+                        var copyText = document.getElementById("ocrtext");
+                        // get text inside of copytext element
+                        var text = copyText.innerText;
+                        /* Copy the text inside the text field */
+                        navigator.clipboard.writeText(text);
+                        // set the text to be copied
+                        document.querySelector('#copybtn').innerText = "ocr text copied";
+                    }
+                </script>
                 <!-- OCR text will be shown -->
             </div>
 
 
-            <div class="container px-5 py-24 mx-auto">
+            <div class="container px-5 py-24 mx-auto" id="ttb">
                 <div class="flex flex-col text-center w-full mb-12">
                     <h1 class="sm:text-7xl text-2xl font-medium mb-4 text-gray-900">Text to Braille Converter</h1>
                     <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">a text to braille converter using arrays</p>
-                
-            <form method="post" action="{% url 'convert_text_to_braille' %}">
+
+            <form method="post" action="{% url 'convert_text_to_braille' %}" id="empty">
             {% csrf_token %}
             <font size="+3"><label for="input-text">Enter Text:</label></font>
             <div class="input-group">
                 <span class="input-group-text"></span>
                 <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
-                      type="text"  id="input-text" name="input_text" required></textarea>
+                      type="text"  id="input-text" name="input_text"></textarea>
                 </font>
             </div>
+            
             <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
             </form>
+
+            <form method="post" action="{% url 'convert_text_to_braille' %}" id="from-ocr">
+            {% csrf_token %}
+            <font size="+3"><label for="input-text">Enter Text:</label></font>
+            <div class="input-group">
+                <span class="input-group-text"></span>
+                <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
+                      type="text"  id="input-text" name="input_text">{{ ocr }}</textarea>
+                </font>
+            </div>
+            
+            <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
+            </form>
+            
             {% if braille_text %}
             <br>
             <font size="+2"><b><h1>Braille Result:</h1></font>
             <font size="+5"><p>{{ braille_text }}</p></font>
             {% endif %}
+
+            <!-- automatic paste ocr text on braille textbox --> 
+            <script>           
+                document.getElementById('empty').style.display = "block"
+                document.getElementById('from-ocr').style.display = "none"
+                document.getElementById('from-ocr').style.height = "0px"
+
+                function braille() 
+                {
+                    document.getElementById('from-ocr').style.display = "block"
+                    document.getElementById('empty').style.display = "none"
+                    document.getElementById('empty').style.height = "0px"
+                }
+            </script>
 
             </div>
 </html>

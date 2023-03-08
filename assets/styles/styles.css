@@ -182,7 +182,8 @@ textarea {
     line-height: inherit;
     color: inherit;
     margin: 0;
-    padding: 0
+    padding: 0;
+    float: right;
 }
 
 button,
