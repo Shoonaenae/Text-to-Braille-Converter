@@ -17,8 +17,8 @@ make sure to install the following: --> better on a virtual environment
 languages recognized:
 - english
 - chinese 
-    [x] traditional
-    [x] simplified
+    - [x] traditional
+    - [x] simplified
 - combinition of chinese and english
 
 **note:** the images tested in this project are carefully chosen since the ocr still needs further modification
