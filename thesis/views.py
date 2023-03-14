@@ -11,7 +11,11 @@ import pytesseract
 import cv2
 
 pytesseract.pytesseract.tesseract_cmd = (
+<<<<<<< Updated upstream
     r"A:\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
+=======
+    r"C:\Program Files\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
+>>>>>>> Stashed changes
 )
 
 myconfig = r"-l eng+chi_sim"
