@@ -9,10 +9,8 @@ make sure to install the following: --> better on a virtual environment
 4. PIL ```pip install PIL```
 5. cv2 ```pip install opencv-python```
 6. download the trained datasets used below and make sure to place it inside the **tessdata** folder of the tesseract ocr installation location.
-- [simplified chinese](https://github.com/tesseract-ocr/tessdata/blob/main/chi_sim.traineddata)
-- [vertical simplified chinese](https://github.com/tesseract-ocr/tessdata/blob/main/chi_sim_vert.traineddata)
-- [traditional chinese](https://github.com/tesseract-ocr/tessdata/blob/main/chi_tra.traineddata)
-- [vertical traditional chinese](https://github.com/tesseract-ocr/tessdata/blob/main/chi_tra_vert.traineddata)
+    - [traditional chinese](https://github.com/tesseract-ocr/tessdata/blob/main/chi_tra.traineddata)
+    - [vertical traditional chinese](https://github.com/tesseract-ocr/tessdata/blob/main/chi_tra_vert.traineddata)
 
 ### ocr
 languages recognized:
