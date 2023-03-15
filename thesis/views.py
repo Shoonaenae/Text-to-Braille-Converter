@@ -8,29 +8,19 @@ from .braille_converter import translateToBraille
 import base64
 import numpy as np
 import pytesseract
-import cv2
 
-# kaye's
+# kaye's directory
 pytesseract.pytesseract.tesseract_cmd = (
     r"X:\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
 )
 
 myconfig = r"-l chi_tra+english"
 
-# Create your views here.
-def resize(im, newWidth):
-    width, height = im.size
-    ratio = height / width
-    newHeight = int(ratio * newWidth)
-    resizedImage = im.resize((newWidth, newHeight))
-
-    return resizedImage
-
 def index(request):
     if request.method == "POST":
         try:
             image = request.FILES["imagefile"]
-
+            
             # encode image to base64 string
             image_base64 = base64.b64encode(image.read()).decode("utf-8")
         except:
@@ -40,8 +30,23 @@ def index(request):
 
             return render(request, "home.html")
   
-        img = np.array(Image.open(image))
-        text = pytesseract.image_to_string(img, config = myconfig)
+        #img = np.array(Image.open(image))
+        img = Image.open(image)
+        
+        # Calculate the new size while maintaining the aspect ratio
+        width, height = img.size
+        aspect_ratio = width / height
+        new_width = 403
+        new_height = int(new_width / aspect_ratio)
+        new_size = (new_width, new_height)
+
+        # Resize the image
+        resized_image = img.resize(new_size)
+
+        # Convert the image to grayscale
+        # grayscale_image = resized_image.convert('L')
+
+        text = pytesseract.image_to_string(resized_image, config = myconfig)
 
         # return text to html
         return render(request, "home.html", {"ocr": text, "image": image_base64})
