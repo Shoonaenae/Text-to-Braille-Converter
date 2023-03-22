@@ -11,10 +11,11 @@ import pytesseract
 
 # kaye's directory
 pytesseract.pytesseract.tesseract_cmd = (
-    r"X:\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
+    r"E:\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
 )
 
-myconfig = r"-l chi_tra+english"
+myconfig = r"--oem 3 --psm 3"
+# -l chi_tra+english
 
 def index(request):
     if request.method == "POST":
@@ -30,23 +31,24 @@ def index(request):
 
             return render(request, "home.html")
   
-        #img = np.array(Image.open(image))
+        img = np.array(Image.open(image))
         img = Image.open(image)
         
         # Calculate the new size while maintaining the aspect ratio
         width, height = img.size
         aspect_ratio = width / height
-        new_width = 403
+        new_width = 834
         new_height = int(new_width / aspect_ratio)
         new_size = (new_width, new_height)
 
-        # Resize the image
+        # # Resize the image
         resized_image = img.resize(new_size)
 
         # Convert the image to grayscale
         # grayscale_image = resized_image.convert('L')
 
-        text = pytesseract.image_to_string(resized_image, config = myconfig)
+        lang = request.POST["language"]
+        text = pytesseract.image_to_string(resized_image, lang = lang, config = myconfig)
 
         # return text to html
         return render(request, "home.html", {"ocr": text, "image": image_base64})

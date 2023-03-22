@@ -77,13 +77,13 @@
                             <input name="imagefile" re accept="image/*" type="file" id="formFile"
                                 style="display: none;">
 
-                            <!-- <button class="custom-btn shadow-md " disabled>
+                            <button class="custom-btn shadow-md " disabled>
                                 <select name="language" id="languages" class="bg-transparent">
                                     <option value="eng" selected >english</option>
-                                    <option value="chi_sim">chinese</option>
-                                    <option value="eng chi_sim">mixed</option>
+                                    <option value="chi_tra">chinese</option>
+                                    <option value="chi_tra+english">mixed</option>
                                 </select>
-                            </button> -->
+                            </button>
                             
                             <button type="submit" class="custom-btn shadow-md bg-white">get text</button>
                         </form>
@@ -101,30 +101,33 @@
 
                 <!-- OCR text will be shown -->
                 {% if ocr %}
-                <div class=" ease-out bg-white text-slate-800 rounded-2xl hover:shadow-lg p-6 mt-3 duration-300 w-auto">
+                    <div class=" ease-out bg-white text-slate-800 rounded-2xl hover:shadow-lg p-6 mt-3 duration-300 w-auto">
                     <button id="copybtn" onclick="copy()" class="button">copy</button>   
                     
-                    <p id="ocrtext" class="text-lg mt-2  mb-8 text-center ">{{ ocr }}</p>   
-                    <a type="submit" class="custom-btn shadow-md bg-white" href="#ttb" id="braille" onclick="braille()">get braille</a>               
-                </div>
-                {% endif %}
+                    <!-- <p id="ocrtext" class="text-lg mt-2  mb-8">{{ ocr }}</p>    -->
 
-                <script>
-                    // copy to clipboard on copy btn click
-                    function copy() 
-                    {
-                        /* Get the text field */
-                        var copyText = document.getElementById("ocrtext");
-                        // get text inside of copytext element
-                        var text = copyText.innerText;
-                        /* Copy the text inside the text field */
-                        navigator.clipboard.writeText(text);
-                        // set the text to be copied
-                        document.querySelector('#copybtn').innerText = "ocr text copied";
-                    }
-                </script>
-                <!-- OCR text will be shown -->
+                    <pre class="text-lg mt-2  mb-8">{{ ocr }}</pre>
+
+                    <a type="submit" class="custom-btn shadow-md bg-white" href="#ttb" id="braille" onclick="braille()">get braille</a>               
+                    </div> 
+                {% endif %}
             </div>
+
+            <script>
+                // copy to clipboard on copy btn click
+                function copy() 
+                {
+                    /* Get the text field */
+                    var copyText = document.getElementById("ocrtext");
+                    // get text inside of copytext element
+                    var text = copyText.innerText;
+                    /* Copy the text inside the text field */
+                    navigator.clipboard.writeText(text);
+                    // set the text to be copied
+                    document.querySelector('#copybtn').innerText = "ocr text copied";
+                }
+            </script>
+            <!-- OCR text will be shown -->
 
 
             <div class="container px-5 py-24 mx-auto" id="ttb">
