@@ -81,7 +81,7 @@
                                 <select name="language" id="languages" class="bg-transparent">
                                     <option value="eng" selected >english</option>
                                     <option value="chi_tra">chinese</option>
-                                    <option value="chi_tra+english">mixed</option>
+                                    <option value="eng+chi_tra">chinglish</option>
                                 </select>
                             </button>
                             
@@ -106,7 +106,7 @@
                     
                     <!-- <p id="ocrtext" class="text-lg mt-2  mb-8">{{ ocr }}</p>    -->
 
-                    <pre class="text-lg mt-2  mb-8">{{ ocr }}</pre>
+                    <pre id="ocrtext" class="text-lg mt-2  mb-8 text-center">{{ ocr }}</pre>
 
                     <a type="submit" class="custom-btn shadow-md bg-white" href="#ttb" id="braille" onclick="braille()">get braille</a>               
                     </div> 

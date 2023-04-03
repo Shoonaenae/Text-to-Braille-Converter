@@ -33,25 +33,40 @@ def index(request):
   
         img = np.array(Image.open(image))
         img = Image.open(image)
-        
-        # Calculate the new size while maintaining the aspect ratio
-        width, height = img.size
-        aspect_ratio = width / height
-        new_width = 834
-        new_height = int(new_width / aspect_ratio)
-        new_size = (new_width, new_height)
-
-        # # Resize the image
-        resized_image = img.resize(new_size)
-
-        # Convert the image to grayscale
-        # grayscale_image = resized_image.convert('L')
 
         lang = request.POST["language"]
-        text = pytesseract.image_to_string(resized_image, lang = lang, config = myconfig)
+        
+        # Calculate the new size while maintaining the aspect ratio
+        if lang == 'eng':
+            width, height = img.size
+            aspect_ratio = width / height
+            new_width = 834
+            new_height = int(new_width / aspect_ratio)
+            new_size = (new_width, new_height)
+            
+            # Resize the image
+            resized_image = img.resize(new_size)
+            text = pytesseract.image_to_string(resized_image, lang = lang, config = myconfig)
+            
+            # return text to html
+            return render(request, "home.html", {"ocr": text, "image": image_base64})
+        elif lang == 'chi_tra' or lang == "eng+chi_tra":
+            width, height = img.size
+            aspect_ratio = width / height
+            new_width = 834
+            new_height = int(new_width / aspect_ratio)
+            new_size = (new_width, new_height)
+            
+            # Resize the image
+            resized_image = img.resize(new_size)
 
-        # return text to html
-        return render(request, "home.html", {"ocr": text, "image": image_base64})
+            # Convert the image to grayscale
+            grayscale_image = resized_image.convert('L')
+
+            text = pytesseract.image_to_string(grayscale_image, lang = lang, config = myconfig)
+
+            # return text to html
+            return render(request, "home.html", {"ocr": text, "image": image_base64})
 
     return render(request, "home.html")
 
