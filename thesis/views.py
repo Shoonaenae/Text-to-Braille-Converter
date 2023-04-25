@@ -3,19 +3,33 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import render
 from PIL import Image
+
+from thesis.utils.braille_utils import braille_to_image, text_to_braille
 from .braille_converter import translateToBraille
+from django.shortcuts import render
+from PIL import Image, ImageDraw, ImageFont
+from .models import BrailleImages
 
 import base64
 import numpy as np
 import pytesseract
 
+
 # kaye's directory
 pytesseract.pytesseract.tesseract_cmd = (
-    r"E:\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
+    r"C:\Program Files\Tesseract-OCR\tesseract.exe"  # Path to tesseract.exe
 )
 
 myconfig = r"--oem 3 --psm 3"
 # -l chi_tra+english
+
+braille_dict = {
+    'a': '⠁', 'b': '⠃', 'c': '⠉', 'd': '⠙', 'e': '⠑', 'f': '⠋', 'g': '⠛', 'h': '⠓', 'i': '⠊', 'j': '⠚',
+    'k': '⠅', 'l': '⠇', 'm': '⠍', 'n': '⠝', 'o': '⠕', 'p': '⠏', 'q': '⠟', 'r': '⠗', 's': '⠎', 't': '⠞',
+    'u': '⠥', 'v': '⠧', 'w': '⠺', 'x': '⠭', 'y': '⠽', 'z': '⠵', ' ': '⠀', '.': '⠲', ',': '⠂',
+    '?': '⠦', '!': '⠖', "'": '⠄', '-': '⠤', '(': '⠐⠣', ')': '⠐⠜'
+}
+
 
 def index(request):
     if request.method == "POST":
@@ -68,6 +82,7 @@ def index(request):
             # return text to html
             return render(request, "home.html", {"ocr": text, "image": image_base64})
 
+    images = BrailleImages.objects.all().count()
     return render(request, "home.html")
 
 def convert_text_to_braille(request):
@@ -75,5 +90,14 @@ def convert_text_to_braille(request):
         input_text = request.POST['input_text']
         braille_text = translateToBraille(input_text)
         return render(request, 'home.html', {'braille_text': braille_text})
+    else:
+        return render(request, 'home.html')
+    
+def convert_to_braille_image(request):
+    if request.method == 'POST':
+        text = request.POST['text']
+        braille = text_to_braille(text)
+        braille_to_image(braille)
+        return render(request, 'home.html', {'image_path': braille})
     else:
         return render(request, 'home.html')

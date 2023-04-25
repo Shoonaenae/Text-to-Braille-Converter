@@ -108,7 +108,7 @@
 
                     <pre id="ocrtext" class="text-lg mt-2  mb-8 text-center">{{ ocr }}</pre>
 
-                    <a type="submit" class="custom-btn shadow-md bg-white" href="#ttb" id="braille" onclick="braille()">get braille</a>               
+                    <a type="submit" class="custom-btn shadow-md bg-white" href="#ttb" id="braille" onclick="braille()">Get Braille</a>               
                     </div> 
                 {% endif %}
             </div>
@@ -166,7 +166,19 @@
             <font size="+2"><b><h1>Braille Result:</h1></font>
             <font size="+5"><p>{{ braille_text }}</p></font>
             {% endif %}
+            
 
+            <form method="post" action="{% url 'braille' %}">
+                {% csrf_token %}
+                <label for="text">Enter text to convert to Braille and Make an Image:</label><br>
+                <input type="text" id="textt" name="text"><br>
+                <input type="submit" value="Convert">
+              </form>
+              
+              {% comment %} {% if image_path %} {% endcomment %}
+                <img src={% static "images\braille_image.png"%} alt="Braille Image">
+              {% comment %} {% endif %} {% endcomment %}
+             
             <!-- automatic paste ocr text on braille textbox --> 
             <script>           
                 document.getElementById('empty').style.display = "block"
