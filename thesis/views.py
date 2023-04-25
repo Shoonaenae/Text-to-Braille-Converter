@@ -8,7 +8,6 @@ from thesis.utils.braille_utils import braille_to_image, text_to_braille
 from .braille_converter import translateToBraille
 from django.shortcuts import render
 from PIL import Image, ImageDraw, ImageFont
-from .models import BrailleImages
 
 import base64
 import numpy as np
@@ -82,7 +81,6 @@ def index(request):
             # return text to html
             return render(request, "home.html", {"ocr": text, "image": image_base64})
 
-    images = BrailleImages.objects.all().count()
     return render(request, "home.html")
 
 def convert_text_to_braille(request):
@@ -95,7 +93,7 @@ def convert_text_to_braille(request):
     
 def convert_to_braille_image(request):
     if request.method == 'POST':
-        text = request.POST['text']
+        text = request.POST['brailleText']
         braille = text_to_braille(text)
         braille_to_image(braille)
         return render(request, 'home.html', {'image_path': braille})

@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sessions',
-    'thesis'
 ]
 
 MIDDLEWARE = [
@@ -78,12 +77,8 @@ WSGI_APPLICATION = 'sp2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysqlkks',
-        'USER': 'root',
-        'PASSWORD': '123456',
-        'PORT': 3306,
-        'HOST': '127.0.0.1'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
