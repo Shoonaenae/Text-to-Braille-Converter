@@ -101,12 +101,12 @@
 
                 <!-- OCR text will be shown -->
                 {% if ocr %}
-                    <div class=" ease-out bg-white text-slate-800 rounded-2xl hover:shadow-lg p-6 mt-3 duration-300 w-auto">
+                    <div class="ease-out bg-white text-slate-800 rounded-2xl hover:shadow-lg p-6 mt-3 duration-300 w-auto">
                     <button id="copybtn" onclick="copy()" class="button">copy</button>   
                     
                     <!-- <p id="ocrtext" class="text-lg mt-2  mb-8">{{ ocr }}</p>    -->
 
-                    <pre id="ocrtext" class="text-lg mt-2  mb-8 text-center">{{ ocr }}</pre>
+                    <pre id="ocrtext" class="text-lg mt-2  mb-8">{{ ocr }}</pre>
 
                     <a type="submit" class="custom-btn shadow-md bg-white" href="#ttb" id="braille" onclick="braille()">get braille</a>               
                     </div> 

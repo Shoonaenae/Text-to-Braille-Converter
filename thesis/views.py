@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import render
-from PIL import Image
+from PIL import Image, ImageFilter
 from .braille_converter import translateToBraille
 
 import base64
@@ -37,36 +37,43 @@ def index(request):
         lang = request.POST["language"]
         
         # Calculate the new size while maintaining the aspect ratio
-        if lang == 'eng':
-            width, height = img.size
-            aspect_ratio = width / height
-            new_width = 834
-            new_height = int(new_width / aspect_ratio)
-            new_size = (new_width, new_height)
+        # if lang == 'eng':
+        #     width, height = img.size
+        #     aspect_ratio = width / height
+        #     new_width = 834
+        #     new_height = int(new_width / aspect_ratio)
+        #     new_size = (new_width, new_height)
             
-            # Resize the image
-            resized_image = img.resize(new_size)
-            text = pytesseract.image_to_string(resized_image, lang = lang, config = myconfig)
+        #     # Resize the image
+        #     resized_image = img.resize(new_size)
+        #     text = pytesseract.image_to_string(resized_image, lang = lang, config = myconfig)
+            
+        #     # return text to html
+        #     return render(request, "home.html", {"ocr": text, "image": image_base64})
+        # elif lang == 'chi_tra' or lang == "eng+chi_tra":
+        #     width, height = img.size
+        #     aspect_ratio = width / height
+        #     new_width = 834
+        #     new_height = int(new_width / aspect_ratio)
+        #     new_size = (new_width, new_height)
+            
+        #     # Resize the image
+        #     resized_image = img.resize(new_size)
+
+        #     # Convert the image to grayscale
+        #     grayscale_image = resized_image.convert('L')
+
+        #     text = pytesseract.image_to_string(grayscale_image, lang = lang, config = myconfig)
+
+        # Preprocess the image
+        image = img.filter(ImageFilter.SHARPEN)
+        image = image.convert('L')
+
+        # Use pytesseract to perform OCR on the preprocessed image
+        text = pytesseract.image_to_string(image, lang=lang)
             
             # return text to html
-            return render(request, "home.html", {"ocr": text, "image": image_base64})
-        elif lang == 'chi_tra' or lang == "eng+chi_tra":
-            width, height = img.size
-            aspect_ratio = width / height
-            new_width = 834
-            new_height = int(new_width / aspect_ratio)
-            new_size = (new_width, new_height)
-            
-            # Resize the image
-            resized_image = img.resize(new_size)
-
-            # Convert the image to grayscale
-            grayscale_image = resized_image.convert('L')
-
-            text = pytesseract.image_to_string(grayscale_image, lang = lang, config = myconfig)
-
-            # return text to html
-            return render(request, "home.html", {"ocr": text, "image": image_base64})
+        return render(request, "home.html", {"ocr": text, "image": image_base64})
 
     return render(request, "home.html")
 
