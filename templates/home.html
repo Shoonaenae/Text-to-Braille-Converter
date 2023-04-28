@@ -72,7 +72,7 @@
                             class="custom-btn shadow-md mb-2"> upload image
                         </button>
 
-                        <form method="post" action="{% url 'convert_text_to_braille' %}" enctype="multipart/form-data" class="flex justify-center">
+                        <form method="post" action="{% url 'index' %}"  enctype="multipart/form-data" class="flex justify-center">
                             {% csrf_token %}
                             <input name="imagefile" re accept="image/*" type="file" id="formFile"
                                 style="display: none;">
@@ -135,42 +135,35 @@
                     <h1 class="sm:text-7xl text-2xl font-medium mb-4 text-gray-900">Text to Braille Converter</h1>
                     <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">a text to braille converter using arrays</p>
 
-            <form method="post" action="{% url 'convert_text_to_braille' %}" id="empty">
-            {% csrf_token %}
-            <font size="+3"><label for="input-text">Enter Text:</label></font>
-            <div class="input-group">
-                <span class="input-group-text"></span>
-                <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
-                      type="text"  id="input-text" name="input_text"></textarea>
-                </font>
-            </div>
+                    <form method="post" action="{% url 'braille' %}" id="empty">
+                        {% csrf_token %}
+                        <font size="+3"><label for="input-text">Enter Text:</label></font>
+                        <div class="input-group">
+                            <span class="input-group-text"></span>
+                            <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
+                                  type="text"  id="brailleText" name="brailleText"></textarea>
+                            </font>
+                        </div>
+                        
+                        <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
+                        </form>
             
-            <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
-            </form>
-            
-            {% if braille_text %}
-            <br>
-            <font size="+2"><b><h1>Braille Result:</h1></font>
-            <font size="+5"><p>{{ braille_text }}</p></font>
-            {% endif %}
-            
-
-            <form method="post" action="{% url 'braille' %}">
-                {% csrf_token %}
-                <font size="+3"><label for="input-text">Enter Text:</label></font>
-                    <div class="input-group">
-                        <span class="input-group-text"></span>
-                        <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
-                        type="text"  id="brailleText" name="brailleText"></textarea>
-                        </font>
-                    </div>
-                
-                    <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille Image</button>
-              </form>
-              
-              {% if image_path %}
-                <img src={% static "images\braille_image.png"%} alt="Braille Image">
-              {% endif %}
+                        <form method="post" action="{% url 'braille' %}" id="from-ocr">
+                        {% csrf_token %}
+                        <font size="+3"><label for="input-text">Enter Text:</label></font>
+                        <div class="input-group">
+                            <span class="input-group-text"></span>
+                            <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
+                                  type="text"  id="brailleText" name="brailleText">{{ ocr }}</textarea>
+                            </font>
+                        </div>
+                        
+                        <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
+                        </form>
+                        
+                        {% if image_path %}
+                        <img src={% static "images\braille_image.png"%} alt="Braille Image">
+                      {% endif %}
              
             <!-- automatic paste ocr text on braille textbox --> 
             <script>           

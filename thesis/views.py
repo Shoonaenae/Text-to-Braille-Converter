@@ -83,13 +83,7 @@ def index(request):
 
     return render(request, "home.html")
 
-def convert_text_to_braille(request):
-    if request.method == 'POST':
-        input_text = request.POST['input_text']
-        braille_text = translateToBraille(input_text)
-        return render(request, 'home.html', {'braille_text': braille_text})
-    else:
-        return render(request, 'home.html')
+
     
 def convert_to_braille_image(request):
     if request.method == 'POST':
