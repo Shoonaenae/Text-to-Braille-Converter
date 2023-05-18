@@ -4,8 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from PIL import Image
 
-from thesis.utils.braille_utils import braille_to_image, text_to_braille
-from .braille_converter import translateToBraille
+from thesis.utils.braille_utils import braille_to_image, text_to_braille, translate_to_braille
 from django.shortcuts import render
 from PIL import Image, ImageDraw, ImageFont
 
@@ -91,5 +90,13 @@ def convert_to_braille_image(request):
         braille = text_to_braille(text)
         braille_to_image(braille)
         return render(request, 'home.html', {'image_path': braille})
+    else:
+        return render(request, 'home.html')
+def translate(request):
+    if request.method == 'POST':
+        text = request.POST['ctext']
+        cbraille = translate_to_braille(text)
+        braille_to_image(cbraille)
+        return render(request, 'home.html', {'text': text, 'cbraille': cbraille})
     else:
         return render(request, 'home.html')

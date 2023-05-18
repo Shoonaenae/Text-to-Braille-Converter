@@ -169,15 +169,47 @@
             <script>           
                 document.getElementById('empty').style.display = "block"
                 document.getElementById('from-ocr').style.display = "none"
-                document.getElementById('from-ocr').style.height = "0px"
+                document.getElementById('ctb').style.display = "block"
 
-                function braille() 
-                {
-                    document.getElementById('from-ocr').style.display = "block"
-                    document.getElementById('empty').style.display = "none"
-                    document.getElementById('empty').style.height = "0px"
-                }
+                function braille() {
+                    var fromOcrForm = document.getElementById('from-ocr');
+                    var emptyForm = document.getElementById('empty');
+                    var ctbSection = document.getElementById('ctb');
+                  
+                    if (fromOcrForm.style.display === 'none') {
+                      fromOcrForm.style.display = 'block';
+                      emptyForm.style.display = 'none';
+                      emptyForm.style.height = '0px';
+                    } else {
+                      fromOcrForm.style.display = 'none';
+                      emptyForm.style.display = 'block';
+                      emptyForm.style.height = 'auto';
+                      ctbSection.style.display = 'block';
+                    }
+                  }
             </script>
+        </div>
+        
+        
+        <div class="container px-9 py-30 mx-auto " id="ctb">
+            <div class="flex flex-col text-center w-full custom-form-section">
+           
+            <form method="post" action="{% url 'translate' %}">
+                {% csrf_token %}
+                <font size="+3"><label for="c-text">Chinese Text:</label></font>
+                <div class="c-group">
+                <span class="c-group-text"></span>
+                    <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
+                          type="text"  id="ctext" name="ctext"></textarea>
+                    </font>
+                </div>
+
+                <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
+            </form>
+            {% if cbraille %}
+                <img src={% static "images\braille_image.png"%} alt="Braille Image">
+            {% endif %}
 
             </div>
+        </div>
 </html>
