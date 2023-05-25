@@ -137,10 +137,10 @@
 
                     <form method="post" action="{% url 'braille' %}" id="empty">
                         {% csrf_token %}
-                        <font size="+3"><label for="input-text">Enter Text:</label></font>
+                        <font size="+3"><label for="input-text">English Text:</label></font>
                         <div class="input-group">
                             <span class="input-group-text"></span>
-                            <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
+                            <font size="+1"><textarea cols="50" rows="8" style="border:groove 6px grey;" 
                                   type="text"  id="brailleText" name="brailleText"></textarea>
                             </font>
                         </div>
@@ -150,10 +150,10 @@
             
                         <form method="post" action="{% url 'braille' %}" id="from-ocr">
                         {% csrf_token %}
-                        <font size="+3"><label for="input-text">Enter Text:</label></font>
+                        <font size="+3"><label for="input-text">English Text:</label></font>
                         <div class="input-group">
                             <span class="input-group-text"></span>
-                            <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
+                            <font size="+1"><textarea cols="50" rows="8" style="border:groove 6px grey;" 
                                   type="text"  id="brailleText" name="brailleText">{{ ocr }}</textarea>
                             </font>
                         </div>
@@ -199,7 +199,7 @@
                 <font size="+3"><label for="c-text">Chinese Text:</label></font>
                 <div class="c-group">
                 <span class="c-group-text"></span>
-                    <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
+                    <font size="+1"><textarea cols="50" rows="8" style="border:groove 6px grey;" 
                           type="text"  id="ctext" name="ctext"></textarea>
                     </font>
                 </div>
