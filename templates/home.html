@@ -72,18 +72,18 @@
                             class="custom-btn shadow-md mb-2"> upload image
                         </button>
 
-                        <form method="post" enctype="multipart/form-data" class="flex justify-center">
+                        <form method="post" action="{% url 'index' %}"  enctype="multipart/form-data" class="flex justify-center">
                             {% csrf_token %}
                             <input name="imagefile" re accept="image/*" type="file" id="formFile"
                                 style="display: none;">
 
-                            <!-- <button class="custom-btn shadow-md " disabled>
+                            <button class="custom-btn shadow-md " disabled>
                                 <select name="language" id="languages" class="bg-transparent">
                                     <option value="eng" selected >english</option>
-                                    <option value="chi_sim">chinese</option>
-                                    <option value="eng chi_sim">mixed</option>
+                                    <option value="chi_tra">chinese</option>
+                                    <option value="eng+chi_tra">chinglish</option>
                                 </select>
-                            </button> -->
+                            </button>
                             
                             <button type="submit" class="custom-btn shadow-md bg-white">get text</button>
                         </form>
@@ -101,30 +101,33 @@
 
                 <!-- OCR text will be shown -->
                 {% if ocr %}
-                <div class=" ease-out bg-white text-slate-800 rounded-2xl hover:shadow-lg p-6 mt-3 duration-300 w-auto">
+                    <div class=" ease-out bg-white text-slate-800 rounded-2xl hover:shadow-lg p-6 mt-3 duration-300 w-auto">
                     <button id="copybtn" onclick="copy()" class="button">copy</button>   
                     
-                    <p id="ocrtext" class="text-lg mt-2  mb-8 text-center ">{{ ocr }}</p>   
-                    <a type="submit" class="custom-btn shadow-md bg-white" href="#ttb" id="braille" onclick="braille()">get braille</a>               
-                </div>
-                {% endif %}
+                    <!-- <p id="ocrtext" class="text-lg mt-2  mb-8">{{ ocr }}</p>    -->
 
-                <script>
-                    // copy to clipboard on copy btn click
-                    function copy() 
-                    {
-                        /* Get the text field */
-                        var copyText = document.getElementById("ocrtext");
-                        // get text inside of copytext element
-                        var text = copyText.innerText;
-                        /* Copy the text inside the text field */
-                        navigator.clipboard.writeText(text);
-                        // set the text to be copied
-                        document.querySelector('#copybtn').innerText = "ocr text copied";
-                    }
-                </script>
-                <!-- OCR text will be shown -->
+                    <pre id="ocrtext" class="text-lg mt-2  mb-8 text-left">{{ ocr }}</pre>
+
+                    <a type="submit" class="custom-btn shadow-md bg-white" href="#ttb" id="braille" onclick="braille()">Get Braille</a>               
+                    </div> 
+                {% endif %}
             </div>
+
+            <script>
+                // copy to clipboard on copy btn click
+                function copy() 
+                {
+                    /* Get the text field */
+                    var copyText = document.getElementById("ocrtext");
+                    // get text inside of copytext element
+                    var text = copyText.innerText;
+                    /* Copy the text inside the text field */
+                    navigator.clipboard.writeText(text);
+                    // set the text to be copied
+                    document.querySelector('#copybtn').innerText = "ocr text copied";
+                }
+            </script>
+            <!-- OCR text will be shown -->
 
 
             <div class="container px-5 py-24 mx-auto" id="ttb">
@@ -132,51 +135,81 @@
                     <h1 class="sm:text-7xl text-2xl font-medium mb-4 text-gray-900">Text to Braille Converter</h1>
                     <p class="lg:w-2/3 mx-auto leading-relaxed text-xl">a text to braille converter using arrays</p>
 
-            <form method="post" action="{% url 'convert_text_to_braille' %}" id="empty">
-            {% csrf_token %}
-            <font size="+3"><label for="input-text">Enter Text:</label></font>
-            <div class="input-group">
-                <span class="input-group-text"></span>
-                <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
-                      type="text"  id="input-text" name="input_text"></textarea>
-                </font>
-            </div>
+                    <form method="post" action="{% url 'braille' %}" id="empty">
+                        {% csrf_token %}
+                        <font size="+3"><label for="input-text">English Text:</label></font>
+                        <div class="input-group">
+                            <span class="input-group-text"></span>
+                            <font size="+1"><textarea cols="50" rows="8" style="border:groove 6px grey;" 
+                                  type="text"  id="brailleText" name="brailleText"></textarea>
+                            </font>
+                        </div>
+                        
+                        <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
+                        </form>
             
-            <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
-            </form>
-
-            <form method="post" action="{% url 'convert_text_to_braille' %}" id="from-ocr">
-            {% csrf_token %}
-            <font size="+3"><label for="input-text">Enter Text:</label></font>
-            <div class="input-group">
-                <span class="input-group-text"></span>
-                <font size="+3"><textarea cols="30" rows="4" style="border:groove 6px grey;" 
-                      type="text"  id="input-text" name="input_text">{{ ocr }}</textarea>
-                </font>
-            </div>
-            
-            <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
-            </form>
-            
-            {% if braille_text %}
-            <br>
-            <font size="+2"><b><h1>Braille Result:</h1></font>
-            <font size="+5"><p>{{ braille_text }}</p></font>
-            {% endif %}
-
+                        <form method="post" action="{% url 'braille' %}" id="from-ocr">
+                        {% csrf_token %}
+                        <font size="+3"><label for="input-text">English Text:</label></font>
+                        <div class="input-group">
+                            <span class="input-group-text"></span>
+                            <font size="+1"><textarea cols="50" rows="8" style="border:groove 6px grey;" 
+                                  type="text"  id="brailleText" name="brailleText">{{ ocr }}</textarea>
+                            </font>
+                        </div>
+                        
+                        <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
+                        </form>
+                        
+                        {% if image_path %}
+                        <img src={% static "images\braille_image.png"%} alt="Braille Image">
+                      {% endif %}
+             
             <!-- automatic paste ocr text on braille textbox --> 
             <script>           
                 document.getElementById('empty').style.display = "block"
                 document.getElementById('from-ocr').style.display = "none"
-                document.getElementById('from-ocr').style.height = "0px"
+                document.getElementById('ctb').style.display = "block"
 
-                function braille() 
-                {
-                    document.getElementById('from-ocr').style.display = "block"
-                    document.getElementById('empty').style.display = "none"
-                    document.getElementById('empty').style.height = "0px"
-                }
+                function braille() {
+                    var fromOcrForm = document.getElementById('from-ocr');
+                    var emptyForm = document.getElementById('empty');
+                    var ctbSection = document.getElementById('ctb');
+                  
+                    if (fromOcrForm.style.display === 'none') {
+                      fromOcrForm.style.display = 'block';
+                      emptyForm.style.display = 'none';
+                      emptyForm.style.height = '0px';
+                    } else {
+                      fromOcrForm.style.display = 'none';
+                      emptyForm.style.display = 'block';
+                      emptyForm.style.height = 'auto';
+                      ctbSection.style.display = 'block';
+                    }
+                  }
             </script>
+        </div>
+        
+        
+        <div class="container px-9 py-30 mx-auto " id="ctb">
+            <div class="flex flex-col text-center w-full custom-form-section">
+           
+            <form method="post" action="{% url 'translate' %}">
+                {% csrf_token %}
+                <font size="+3"><label for="c-text">Chinese Text:</label></font>
+                <div class="c-group">
+                <span class="c-group-text"></span>
+                    <font size="+1"><textarea cols="50" rows="8" style="border:groove 6px grey;" 
+                          type="text"  id="ctext" name="ctext"></textarea>
+                    </font>
+                </div>
+
+                <button type="submit" class="custom-btn shadow-md bg-white">Convert to Braille</button>
+            </form>
+            {% if cbraille %}
+                <img src={% static "images\braille_image.png"%} alt="Braille Image">
+            {% endif %}
 
             </div>
+        </div>
 </html>
