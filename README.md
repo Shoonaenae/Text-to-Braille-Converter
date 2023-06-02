@@ -1,8 +1,8 @@
 # Text-to-Braille-Converter
-Text to Braille with OCR 
+Bilingual OCR and Text-to-braille system
 
 ### requirements
-make sure to install the following before running: --> better on a virtual environment
+make sure to install the following before running: (better on a virtual environment)
 1. [python](https://www.python.org/downloads/windows/)
 2. [tesseract](https://github.com/UB-Mannheim/tesseract/wiki) and add it to your environment variables
 3. numpy ```pip install numpy```
@@ -16,13 +16,16 @@ make sure to install the following before running: --> better on a virtual envir
 
 ### ocr
 languages recognized:
-[x] english
-[x] traditional chinese 
-[x] combinition of chinese and english
+- [x] english
+- [x] traditional chinese 
+- [x] combinition of traditional chinese and english
 
 **note:** the images tested in this project are carefully chosen since the ocr still needs further modification
 
 ### text to braille
-there are (2) two choices to test braille:
-1. get the text from ocr
-2. input text
+capable of:
+- [x] get text from the text extracted on the ocr
+- [x] input text of your choice
+- [x] can convert text to braille on the following language
+- - [x] english
+- - [x] traditional chinese
