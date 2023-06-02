@@ -6,4 +6,5 @@ urlpatterns = [
     path('', index, name="index"),
     path('braille/', convert_to_braille_image, name='braille'),
     path('translate/', translate, name='translate')
+
 ]

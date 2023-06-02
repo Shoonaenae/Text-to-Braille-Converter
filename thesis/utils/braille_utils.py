@@ -1,4 +1,3 @@
-
 from PIL import Image
 
 from PIL import Image, ImageDraw, ImageFont
@@ -81,4 +80,3 @@ def translate_to_braille(text):
         else:
             braille += char
     return braille
-
